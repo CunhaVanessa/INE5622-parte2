@@ -1,0 +1,18 @@
+def calcular ( int N , int M ) {
+    int Res ;
+    if ( N > M ) {
+        Res := N - M ;
+    } else {
+        Res := M - N ;
+    }
+    return Res ;
+}
+
+def main ( ) {
+    int A , B , C ;
+    A := 10 ;
+    B := 20 ;
+    C := calcular ( A , B ) ;
+    print C ;
+    return ;
+}

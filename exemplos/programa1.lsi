@@ -1,0 +1,7 @@
+def func1 (int A, int B) {
+    int C, D ,R;
+    C := A + B;
+    D := A + B * C;
+    R := C - D;
+    return R;
+}$

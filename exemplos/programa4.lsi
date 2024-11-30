@@ -1,0 +1,7 @@
+def verificar ( int A , int B ) {
+    int Resultado ;
+    else {
+        Resultado := A + B ;
+    }
+    return Resultado ;
+}
