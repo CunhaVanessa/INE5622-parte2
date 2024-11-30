@@ -1,5 +1,5 @@
 # analisador_sintatico_preditivo.py
-# Autores: [Seu Nome]
+# Autores: Vanessa Cunha, Gabriel Terra, Pedro Bressan
 # Implementação de um analisador sintático preditivo LL(1) para a linguagem LSI-2024-2
 
 import sys

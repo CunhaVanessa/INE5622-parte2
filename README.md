@@ -1,71 +1,67 @@
-# INE5622-parte2
----------------------------------------------
+# Analisador Sintático Preditivo LL(1)
 
-### Descrição do Projeto
-Este projeto implementa um analisador sintático preditivo para gramáticas LL(1). Ele utiliza os conjuntos **FIRST** e **FOLLOW** para construir uma tabela de análise sintática preditiva, capaz de verificar strings pertencentes à linguagem descrita pela gramática dada.
+Autores: Vanessa Cunha, Gabriel Terra, Pedro Bressan.
 
-O programa também lida com gramáticas fatoradas à esquerda e sem recursão à esquerda. Caso a gramática não seja LL(1), o programa identificará conflitos na tabela durante sua construção.
+Este projeto implementa um analisador sintático preditivo LL(1) para a linguagem LSI-2024-2. Ele processa um arquivo de entrada contendo código fonte e realiza a análise sintática para verificar se o código está em conformidade com a gramática definida. O analisador utiliza tabelas FIRST e FOLLOW para gerar uma tabela de parsing LL(1) e suporta produções com a derivação vazia (ε).
 
-### Estrutura do Código
-- **`AnalisadorSintaticoPreditivo`**: Classe principal que realiza todas as operações necessárias.
-  - **`calcular_first`**: Calcula os conjuntos FIRST para cada não terminal.
-  - **`calcular_follow`**: Calcula os conjuntos FOLLOW para cada não terminal.
-  - **`construir_tabela`**: Constrói a tabela de análise sintática preditiva com base nos conjuntos FIRST e FOLLOW.
-  - **`exibir_tabela`**: Exibe a tabela de análise sintática no terminal.
-- As produções da gramática são configuradas em um dicionário Python.
+O projeto contém uma classe principal chamada AnalisadorSintaticoPreditivo, que processa a gramática, calcula os conjuntos FIRST e FOLLOW, constrói a tabela de análise sintática e realiza o parsing dos tokens da entrada com base na gramática.
 
-### Como Configurar
-1. **Requisitos:**
-   - Python 3.8 ou superior.
-   - Um editor de texto ou IDE para rodar o código.
+## Requisitos: 
 
-2. **Estrutura de Produções:**
-   As produções devem ser fornecidas como um dicionário Python no seguinte formato:
-   - Cada não terminal é uma chave.
-   - Os valores são listas de produções, onde cada produção é representada por uma lista de símbolos.
+É necessário Python 3.7 ou superior para executar o projeto.
 
-   **Exemplo de Produções:**
-   ```python
-   producoes = {
-       "S": [["a", "A"], ["b"]],
-       "A": [["b", "S"], ["ε"]]
-   }   
+## Como utilizar:
 
-3. **Instalação:**
-   - Copie o código para um arquivo chamado analisador_sintatico.py.
-   - Não é necessário instalar bibliotecas externas.
+Para usar o analisador, siga as instruções: 
 
-   **Como executar:**
-    1. Abra o terminal no diretório onde o arquivo foi salvo.
-    2. Execute o script com o comando: `python analisador_sintatico.py`
-    3. Saída Esperada: O programa exibirá:
-        - Os conjuntos FIRST e FOLLOW.
-        - A tabela de análise sintática preditiva.
+1. Prepare o arquivo de entrada com a extensão .lsi contendo o código que será analisado. Por exemplo, temos o arquivo programa2.lsi que está disponível na pasta de exemplos:
    
-   **Exemplo de Saída**
-    
-    - Para a gramática:
+   ```def calcular ( int N , int M ) {
+       int Res ;
+       if ( N > M ) {
+           Res := N - M ;
+       } else {
+           Res := M - N ;
+       }
+       return Res ;
+   }
 
-                S → aA | b
-                A → bS | ε
+   def main ( ) {
+       int A , B , C ;
+       A := 10 ;
+       B := 20 ;
+       C := calcular ( A , B ) ;
+       print C ;
+       return ;
+   }
+2. Execute o script no terminal fornecendo o caminho para o arquivo como argumento. Por exemplo, use o comando:
    
-   - O programa exibirá:
+   `python3 analisador_sintatico.py <caminho_do_arquivo>`
+   
+   Um exemplo de execução seria:
+   
+   `python3 analisador_sintatico.py exemplos/programa1.lsi`
 
-            S: {'a': ['a', 'A'], 'b': ['b']}
-            A: {'b': ['b', 'S'], '$': ['ε']}
+3. Verifique a saída do programa. O script exibirá o processo de parsing, incluindo cada produção aplicada e tokens consumidos. Em caso de erro, mensagens indicativas serão exibidas para ajudar na correção.
 
-            FIRST:
-            S: {'a', 'b'}
-            A: {'b', 'ε'}
+A gramática utilizada no projeto é definida para a linguagem LSI-2024-2. Alguns dos principais elementos incluem declaração de funções, lista de instruções, atribuições, chamadas de função, condicionais e expressões numéricas.
 
-            FOLLOW:
-            S: {'$'}
-            A: {'a', 'b', '$'}
+O parsing LL(1) é implementado com uma pilha para os símbolos da gramática e utiliza a tabela de parsing construída a partir dos conjuntos FIRST e FOLLOW. Em caso de erros, mensagens indicam problemas como tokens não consumidos ou produções ausentes na tabela de parsing. 
 
- **Notas Importantes**
-- Certifique-se de que a gramática fornecida está fatorada e sem recursão à esquerda antes de rodar o programa. 
-- Em caso de conflitos na gramática (não LL(1)), o programa exibirá mensagens de erro detalhadas indicando os conflitos.
-- Para alterar a gramática analisada, edite a variável producoes no código.
+Possíveis erros incluem mensagens como "list index out of range", que podem ocorrer caso os tokens não terminem com o marcador $ no final da entrada. Outro erro comum é "Erro: sem entrada na tabela", que indica que a entrada não está em conformidade com a gramática.
 
-**O que ainda falta**
-- Receber a linguagem via linha de comando
+Por exemplo, a saída do programa pode incluir o seguinte:
+
+Processo de Parsing:
+
+```MAIN -> FLIST MAIN'
+FLIST -> FDEF FLIST'
+FDEF -> def id ( PARLIST ) { STMTLIST }
+Match: def
+Match: id
+Match: (
+PARLIST -> int id PARLIST'
+Match: int
+Match: id
+...
+Parsing concluído com sucesso!
