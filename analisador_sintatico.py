@@ -1,16 +1,33 @@
 from collections import defaultdict
 
 class AnalisadorSintaticoPreditivo:
-    def __init__(self, producoes):
+    def __init__(self, gramatica):
         """
         Inicializa a gramática e estrutura para FIRST, FOLLOW e tabela de análise.
         """
-        self.producoes = producoes
+        self.producoes = self.parse_gramatica(gramatica)
         self.first = defaultdict(set)
         self.follow = defaultdict(set)
         self.tabela = defaultdict(dict)
-        self.nao_terminais = set(producoes.keys())
+        self.nao_terminais = set(self.producoes.keys())
         self.terminais = self._extrair_terminais()
+
+    def parse_gramatica(self, gramatica):
+        """
+        Converte gramática no formato string para dicionário.
+        Exemplo:
+        'E ::= T E'\nE' ::= + T E' | ε\n...' -> {'E': [['T', "E'"]], "E'": [['+', 'T', "E'"], ['ε']], ...}
+        """
+        producoes = {}
+        linhas = gramatica.strip().split('\n')
+        for linha in linhas:
+            nao_terminal, regras = linha.split('::=')
+            nao_terminal = nao_terminal.strip()
+            regras = [regra.strip().split() for regra in regras.split('|')]
+            # Substituir '' por ε
+            regras = [[simbolo if simbolo != "''" else 'ε' for simbolo in regra] for regra in regras]
+            producoes[nao_terminal] = regras
+        return producoes
 
     def _extrair_terminais(self):
         """
@@ -20,7 +37,7 @@ class AnalisadorSintaticoPreditivo:
         for producoes in self.producoes.values():
             for producao in producoes:
                 for simbolo in producao:
-                    if simbolo not in self.producoes:
+                    if simbolo not in self.producoes and simbolo != 'ε':
                         terminais.add(simbolo)
         return terminais
 
@@ -111,12 +128,15 @@ class AnalisadorSintaticoPreditivo:
             print(f"{nao_terminal}: {entradas}")
 
 # Exemplo de uso:
-producoes = {
-    "S": [["a", "A"], ["b"]],
-    "A": [["b", "S"], ["ε"]]
-}
+gramatica = """
+E ::= T E'
+E' ::= + T E' | ε
+T ::= F T'
+T' ::= * F T' | ε
+F ::= ( E ) | id
+"""
 
-analisador = AnalisadorSintaticoPreditivo(producoes)
+analisador = AnalisadorSintaticoPreditivo(gramatica)
 analisador.calcular_first()
 analisador.calcular_follow()
 analisador.construir_tabela()
