@@ -187,7 +187,7 @@ class AnalisadorSintaticoPreditivo:
                 break
 
         # Validação final
-        if sucesso and len(self.pilha) == 1 and self.pilha[0] == '$' and index == len(self.tokens) - 1:
+        if sucesso and len(self.pilha) == 0 and atual == '$' and index == len(self.tokens) - 1:
             print("Parsing concluído com sucesso!")
         else:
             if len(self.pilha) > 1 or self.pilha[0] != '$':

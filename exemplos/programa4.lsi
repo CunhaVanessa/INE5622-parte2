@@ -4,4 +4,4 @@ def verificar ( int A , int B ) {
         Resultado := A + B ;
     }
     return Resultado ;
-}
+}$
