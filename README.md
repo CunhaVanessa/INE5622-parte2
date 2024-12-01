@@ -65,3 +65,15 @@ Match: int
 Match: id
 ...
 Parsing concluído com sucesso!
+```
+
+## O que falta:
+- Escrever as tabelas: FIRST, FOLLOW e tabela de análise preditiva em CSV na pasta saidas
+
+- Extrair a gramática para a pasta gramática
+
+- Revisar novamente a gramática aplicada
+
+- Revisar se o código está aderente ao requisito:Especificamente, você deve implementar, no formato especificado abaixo, exatamente o algoritmo visto em aula para "parsing preditivo guiado por tabela".
+
+- Adicionar na saída de sucesso quantos matches deram na análise.
