@@ -1,59 +1,77 @@
- MAIN ::= FLIST MAIN'
- MAIN' ::= STMT
- MAIN' ::= ''
- FLIST ::= FDEF FLIST'
- FLIST' ::= FDEF FLIST'
- FLIST' ::= ''
- FDEF ::= def id ( PARLIST ) { STMTLIST }
- PARLIST ::= int id PARLIST'
- PARLIST ::= ''
- PARLIST' ::= , int id PARLIST'
- PARLIST' ::= ''
- VARLIST ::= id VARLIST'
- VARLIST' ::= , id VARLIST'
- VARLIST' ::= ''
- STMT ::= int VARLIST ;
- STMT ::= ATRIBST ;
- STMT ::= PRINTST ;
- STMT ::= RETURNST ;
- STMT ::= IFSTMT
- STMT ::= { STMTLIST }
- STMT ::= ;
- ATRIBST ::= id := EXPR ATRIBEXPR
- ATRIBEXPR ::= FCALL
- ATRIBEXPR ::= ''
- FCALL ::= id ( PARLISTCALL )
- PARLISTCALL ::= id PARLISTCALL'
- PARLISTCALL' ::= , id PARLISTCALL'
- PARLISTCALL' ::= ''
- PRINTST ::= print EXPR
- RETURNST ::= return RETURNID
- RETURNID ::= id
- RETURNID ::= ''
- IFSTMT ::= if ( EXPR ) STMT ELSEPART
- ELSEPART ::= else STMT ELSEBODY
- ELSEBODY ::= ε
- STMTLIST ::= STMT STMTLIST'
- STMTLIST' ::= STMT STMTLIST'
- STMTLIST' ::= ''
- EXPR ::= NUMEXPR EXPR'
- EXPR' ::= < NUMEXPR
- EXPR' ::= <= NUMEXPR
- EXPR' ::= > NUMEXPR
- EXPR' ::= >= NUMEXPR
- EXPR' ::= == NUMEXPR
- EXPR' ::= <> NUMEXPR
- EXPR' ::= ''
- NUMEXPR ::= TERM NUMEXPR'
- NUMEXPR' ::= + TERM NUMEXPR'
- NUMEXPR' ::= - TERM NUMEXPR'
- NUMEXPR' ::= ''
- TERM ::= FACTOR TERM'
- TERM' ::= * FACTOR TERM'
- TERM' ::= / FACTOR TERM'
- TERM' ::= ''
- FACTOR ::= num
- FACTOR ::= ( EXPR )
- FACTOR ::= id FACTOR'
- FACTOR' ::= ( PARLISTCALL )
- FACTOR' ::= ''
+
+                    MAIN ::= FLIST MAIN'
+                    MAIN' ::= STMT
+                    MAIN' ::= ''
+
+                    FLIST ::= FDEF FLIST'
+                    FLIST' ::= FDEF FLIST'
+                    FLIST' ::= ''
+
+                    FDEF ::= def id ( PARLIST ) { STMTLIST }
+
+                    PARLIST ::= int id PARLIST'
+                    PARLIST ::= ''
+                    PARLIST' ::= , int id PARLIST'
+                    PARLIST' ::= ''
+
+                    VARLIST ::= id VARLIST'
+                    VARLIST' ::= , id VARLIST'
+                    VARLIST' ::= ''
+
+                    STMT ::= int VARLIST ;
+                    STMT ::= ATRIBST ;
+                    STMT ::= PRINTST ;
+                    STMT ::= RETURNST ;
+                    STMT ::= IFSTMT
+                    STMT ::= { STMTLIST }
+                    STMT ::= ;
+
+                    ATRIBST ::= id := EXPR ATRIBEXPR
+                    ATRIBEXPR ::= FCALL
+                    ATRIBEXPR ::= ''
+
+                    FCALL ::= id ( PARLISTCALL )
+
+                    PARLISTCALL ::= id PARLISTCALL'
+                    PARLISTCALL' ::= , id PARLISTCALL'
+                    PARLISTCALL' ::= ''
+
+                    PRINTST ::= print EXPR
+
+                    RETURNST ::= return RETURNID
+                    RETURNID ::= id
+                    RETURNID ::= ''
+
+                    IFSTMT ::= if ( EXPR ) STMT ELSEPART
+                    ELSEPART ::= else STMT ELSEBODY
+                    ELSEBODY ::= ε
+
+                    STMTLIST ::= STMT STMTLIST'
+                    STMTLIST' ::= STMT STMTLIST'
+                    STMTLIST' ::= ''
+
+                    EXPR ::= NUMEXPR EXPR'
+                    EXPR' ::= < NUMEXPR
+                    EXPR' ::= <= NUMEXPR
+                    EXPR' ::= > NUMEXPR
+                    EXPR' ::= >= NUMEXPR
+                    EXPR' ::= == NUMEXPR
+                    EXPR' ::= <> NUMEXPR
+                    EXPR' ::= ''
+
+                    NUMEXPR ::= TERM NUMEXPR'
+                    NUMEXPR' ::= + TERM NUMEXPR'
+                    NUMEXPR' ::= - TERM NUMEXPR'
+                    NUMEXPR' ::= ''
+
+                    TERM ::= FACTOR TERM'
+                    TERM' ::= * FACTOR TERM'
+                    TERM' ::= / FACTOR TERM'
+                    TERM' ::= ''
+
+                    FACTOR ::= num
+                    FACTOR ::= ( EXPR )
+                    FACTOR ::= id FACTOR'
+                    FACTOR' ::= ( PARLISTCALL )
+                    FACTOR' ::= ''
+                    

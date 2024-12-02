@@ -2,6 +2,7 @@
 # Autores: Vanessa Cunha, Gabriel Terra, Pedro Bressan
 # Implementação de um analisador sintático preditivo LL(1) para a linguagem LSI-2024-2
 
+import csv
 import sys
 from collections import defaultdict
 
@@ -78,6 +79,7 @@ class AnalisadorSintaticoPreditivo:
                                 break
                     if tamanho_inicial != len(self.first[nao_terminal]):
                         alterado = True
+        self._first_follow_csv("first")
 
     def calcular_follow(self):
         """
@@ -108,6 +110,7 @@ class AnalisadorSintaticoPreditivo:
                                 self.follow[simbolo].update(self.follow[nao_terminal])
                             if follow_inicial != self.follow[simbolo]:
                                 alterado = True
+        self._first_follow_csv("follow")
 
     def construir_tabela(self):
         """
@@ -125,6 +128,7 @@ class AnalisadorSintaticoPreditivo:
                         if terminal in self.tabela[nao_terminal]:
                             raise ValueError(f"Conflito na tabela para [{nao_terminal}, {terminal}]")
                         self.tabela[nao_terminal][terminal] = ['ε']
+        self._tabela_csv()
 
     def _first_producao(self, producao):
         """
@@ -141,6 +145,48 @@ class AnalisadorSintaticoPreditivo:
             else:
                 first.add('ε')
         return first
+    
+    def _first_follow_csv(self, conjunto):
+        """
+        Escreve os conjuntos first/follow em um arquivo csv na pasta saidas.
+        """
+        with open(f'saidas/{conjunto}.csv', mode='w', newline='', encoding='utf-8') as file:
+            writer = csv.writer(file)
+            
+            writer.writerow(['nao terminal', f'{conjunto}'])
+            
+            if conjunto == "first":
+                itens = self.first.items()
+            elif conjunto == "follow":
+                itens = self.follow.items()
+
+            for nao_terminal, conjunto in itens:
+                writer.writerow([nao_terminal, ', '.join(sorted(conjunto))])
+    
+    def _tabela_csv(self):
+        """
+        Escreve a tabela de análise sintática preditiva em um arquivo csv na pasta saidas.
+        """
+        with open('saidas/tabela.csv', mode='w', newline='', encoding='utf-8') as file:
+            writer = csv.writer(file)
+            cabecalho = ['']
+            for chave_fora in self.tabela:
+                for chave_dentro in self.tabela[chave_fora]:
+                    if chave_dentro not in cabecalho:
+                        cabecalho.append(chave_dentro)
+            
+            writer.writerow(cabecalho)
+            
+            for chave_fora, dicionario in self.tabela.items():
+                linha = [chave_fora]
+                
+                for coluna in cabecalho[1:]:
+                    if coluna in dicionario:
+                        linha.append(', '.join(dicionario[coluna]))
+                    else:
+                        linha.append('')
+                
+                writer.writerow(linha)
 
     def analisar(self):
         """
@@ -150,6 +196,7 @@ class AnalisadorSintaticoPreditivo:
         self.pilha = ['$']
         self.pilha.append(self.simbolo_inicial)
         index = 0
+        matches = 0
         sucesso = True
 
         print("\nProcesso de Parsing:")
@@ -164,6 +211,7 @@ class AnalisadorSintaticoPreditivo:
 
             if topo == atual:
                 print(f"Match: {atual}")
+                matches += 1
                 index += 1
             elif topo == 'ε':
                 continue
@@ -188,7 +236,7 @@ class AnalisadorSintaticoPreditivo:
 
         # Validação final
         if sucesso and len(self.pilha) == 0 and atual == '$' and index == len(self.tokens) - 1:
-            print("Parsing concluído com sucesso!")
+            print(f"Parsing concluído com sucesso! Matches: {matches}")
         else:
             if len(self.pilha) > 1 or self.pilha[0] != '$':
                 print(f"Erro: pilha não vazia. Conteúdo da pilha: {self.pilha}")
@@ -197,13 +245,12 @@ class AnalisadorSintaticoPreditivo:
             print("Erro: a entrada não foi completamente consumida.")
 
 
-
 def main():
-    if len(sys.argv) != 2:
-        print("Uso: python analisador_sintatico_preditivo.py <caminho_do_arquivo>")
-        sys.exit(1)
+    # if len(sys.argv) != 2:
+    #     print("Uso: python analisador_sintatico_preditivo.py <caminho_do_arquivo>")
+    #     sys.exit(1)
 
-    caminho_arquivo = sys.argv[1]
+    caminho_arquivo = "C:/Users/Pedro/Desktop/INE5622-parte2/exemplos/programa1.lsi"
 
     try:
         with open(caminho_arquivo, 'r') as arquivo:
@@ -212,83 +259,8 @@ def main():
         tokens = conteudo.replace(';', ' ; ').replace(',', ' , ').replace('(', ' ( ').replace(')', ' ) ').replace('{', ' { ').replace('}', ' } ').replace(':=', ' := ').split()
         tokens = ['num' if token.isdigit() else 'id' if token.isidentifier() and token not in ['def', 'int', 'print', 'return', 'if', 'else'] else token for token in tokens]
 
-        gramatica = """
-                    MAIN ::= FLIST MAIN'
-                    MAIN' ::= STMT
-                    MAIN' ::= ''
-
-                    FLIST ::= FDEF FLIST'
-                    FLIST' ::= FDEF FLIST'
-                    FLIST' ::= ''
-
-                    FDEF ::= def id ( PARLIST ) { STMTLIST }
-
-                    PARLIST ::= int id PARLIST'
-                    PARLIST ::= ''
-                    PARLIST' ::= , int id PARLIST'
-                    PARLIST' ::= ''
-
-                    VARLIST ::= id VARLIST'
-                    VARLIST' ::= , id VARLIST'
-                    VARLIST' ::= ''
-
-                    STMT ::= int VARLIST ;
-                    STMT ::= ATRIBST ;
-                    STMT ::= PRINTST ;
-                    STMT ::= RETURNST ;
-                    STMT ::= IFSTMT
-                    STMT ::= { STMTLIST }
-                    STMT ::= ;
-
-                    ATRIBST ::= id := EXPR ATRIBEXPR
-                    ATRIBEXPR ::= FCALL
-                    ATRIBEXPR ::= ''
-
-                    FCALL ::= id ( PARLISTCALL )
-
-                    PARLISTCALL ::= id PARLISTCALL'
-                    PARLISTCALL' ::= , id PARLISTCALL'
-                    PARLISTCALL' ::= ''
-
-                    PRINTST ::= print EXPR
-
-                    RETURNST ::= return RETURNID
-                    RETURNID ::= id
-                    RETURNID ::= ''
-
-                    IFSTMT ::= if ( EXPR ) STMT ELSEPART
-                    ELSEPART ::= else STMT ELSEBODY
-                    ELSEBODY ::= ε
-
-                    STMTLIST ::= STMT STMTLIST'
-                    STMTLIST' ::= STMT STMTLIST'
-                    STMTLIST' ::= ''
-
-                    EXPR ::= NUMEXPR EXPR'
-                    EXPR' ::= < NUMEXPR
-                    EXPR' ::= <= NUMEXPR
-                    EXPR' ::= > NUMEXPR
-                    EXPR' ::= >= NUMEXPR
-                    EXPR' ::= == NUMEXPR
-                    EXPR' ::= <> NUMEXPR
-                    EXPR' ::= ''
-
-                    NUMEXPR ::= TERM NUMEXPR'
-                    NUMEXPR' ::= + TERM NUMEXPR'
-                    NUMEXPR' ::= - TERM NUMEXPR'
-                    NUMEXPR' ::= ''
-
-                    TERM ::= FACTOR TERM'
-                    TERM' ::= * FACTOR TERM'
-                    TERM' ::= / FACTOR TERM'
-                    TERM' ::= ''
-
-                    FACTOR ::= num
-                    FACTOR ::= ( EXPR )
-                    FACTOR ::= id FACTOR'
-                    FACTOR' ::= ( PARLISTCALL )
-                    FACTOR' ::= ''
-                    """
+        with open("gramaticas/gramatica.txt", 'r', encoding='utf-8') as g:
+            gramatica = g.read()
 
         analisador = AnalisadorSintaticoPreditivo(gramatica, tokens)
         analisador.analisar()
