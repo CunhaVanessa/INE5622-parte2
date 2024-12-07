@@ -1,0 +1,15 @@
+# Ignorar diretórios e arquivos do cache do Python
+__pycache__/
+*.py[cod]
+
+# Ignorar arquivos de cache específicos do ambiente virtual (opcional, caso esteja usando venv)
+*.pyo
+
+# Ignorar outros arquivos relacionados ao desenvolvimento Python (opcional)
+*.pyd
+*.pdb
+*.egg
+*.egg-info/
+dist/
+build/
+*.so
