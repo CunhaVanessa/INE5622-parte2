@@ -1,0 +1,44 @@
+def func1 ( int A , int B ) {
+    int C , D , R ;
+    C := A + B ;
+    D := A - B ;
+    R := C * D ;
+    if ( C > D ) {
+        R := C ;
+    } else {
+        R := D ;
+    }
+    print C ;
+    print D ;
+    print R ;
+    C := C + 1 ;
+    D := D - 1 ;
+    R := R * 2 ;
+    print C ;
+    print D ;
+    print R ;
+    if ( C < D ) {
+        R := R - C ;
+    } else {
+        R := R + D ;
+    }
+    print R ;
+    return R ;
+}
+
+def main ( ) {
+    int X , Y , Z ;
+    X := 5 ;
+    Y := 10 ;
+    Z := func1 ( X , Y ) ;
+    print X ;
+    print Y ;
+    print Z ;
+    X := X + 2 ;
+    Y := Y + 3 ;
+    Z := Z + X + Y ;
+    print X ;
+    print Y ;
+    print Z ;
+    return ;
+}$

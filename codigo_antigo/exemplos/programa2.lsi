@@ -1,0 +1,41 @@
+def calcular ( int N , int M ) {
+    int Res , Dif , Temp ;
+    if ( N > M ) {
+        Res := N - M ;
+    } else {
+        Res := M - N ;
+    }
+    Dif := Res * 2 ;
+    Temp := Dif + 5 ;
+    print Res ;
+    print Dif ;
+    print Temp ;
+    if ( Temp > Dif ) {
+        Temp := Temp - Dif ;
+    } else {
+        Temp := Dif + Temp ;
+    }
+    print Temp ;
+    Dif := Dif + 1 ;
+    Res := Res - 1 ;
+    print Res ;
+    print Dif ;
+    return Res ;
+}
+
+def main ( ) {
+    int A , B , Resultado , Temp2 ;
+    A := 20 ;
+    B := 10 ;
+    Resultado := calcular ( A , B ) ;
+    print A ;
+    print B ;
+    print Resultado ;
+    Temp2 := Resultado * 2 ;
+    A := A + Temp2 ;
+    B := B + A ;
+    print A ;
+    print B ;
+    print Temp2 ;
+    return ;
+}$

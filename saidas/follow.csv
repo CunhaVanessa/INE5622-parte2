@@ -1,32 +1,32 @@
-nao terminal,follow
+Não Terminal,FOLLOW
 MAIN,$
-PARLISTCALL,)
-FACTOR,"), *, +, -, /, ;, <, <=, <>, ==, >, >=, id"
-TERM',"), +, -, ;, <, <=, <>, ==, >, >=, id"
-EXPR,"), ;, id"
-ATRIBST,;
-ATRIBEXPR,;
-PARLISTCALL',)
-TERM,"), +, -, ;, <, <=, <>, ==, >, >=, id"
-NUMEXPR,"), ;, <, <=, <>, ==, >, >=, id"
-NUMEXPR',"), ;, <, <=, <>, ==, >, >=, id"
-EXPR',"), ;, id"
-STMT,"$, ;, else, id, if, int, print, return, {, }"
-MAIN',$
-VARLIST',;
 VARLIST,;
-PARLIST,)
+ATRIBST,;
+PRINTST,;
+RETURNST,;
+IFSTMT,"$, ;, else, id, if, int, print, return, {, }"
+STMT,"$, ;, else, id, if, int, print, return, {, }"
 STMTLIST,}
 FDEF,"$, ;, def, id, if, int, print, return, {"
 FLIST,"$, ;, id, if, int, print, return, {"
 FLIST',"$, ;, id, if, int, print, return, {"
-PARLIST',)
-FACTOR',"), *, +, -, /, ;, <, <=, <>, ==, >, >=, id"
-FCALL,;
+FACTOR,"), *, +, -, /, ;, <, <=, <>, ==, >, >=, id"
+TERM',"), +, -, ;, <, <=, <>, ==, >, >=, id"
+EXPR,"), ;, id"
 ELSEPART,"$, ;, else, id, if, int, print, return, {, }"
 ELSEBODY,"$, ;, else, id, if, int, print, return, {, }"
-STMTLIST',}
-IFSTMT,"$, ;, else, id, if, int, print, return, {, }"
-PRINTST,;
 RETURNID,;
-RETURNST,;
+MAIN',$
+PARLISTCALL',)
+PARLISTCALL,)
+ATRIBEXPR,;
+FACTOR',"), *, +, -, /, ;, <, <=, <>, ==, >, >=, id"
+FCALL,;
+PARLIST',)
+PARLIST,)
+TERM,"), +, -, ;, <, <=, <>, ==, >, >=, id"
+VARLIST',;
+STMTLIST',}
+NUMEXPR,"), ;, <, <=, <>, ==, >, >=, id"
+NUMEXPR',"), ;, <, <=, <>, ==, >, >=, id"
+EXPR',"), ;, id"

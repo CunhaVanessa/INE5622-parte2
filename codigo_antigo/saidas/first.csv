@@ -1,0 +1,57 @@
+nao terminal,first
+print,print
+==,==
+num,num
+",",","
+*,*
++,+
+(,(
+/,/
+>=,>=
+},}
+),)
+<,<
+-,-
+>,>
+def,def
+id,id
+:=,:=
+;,;
+<>,<>
+int,int
+if,if
+return,return
+{,{
+<=,<=
+else,else
+EXPR',"<, <=, <>, ==, >, >=, ε"
+RETURNST,return
+ELSEBODY,ε
+TERM,"(, id, num"
+FACTOR,"(, id, num"
+EXPR,"(, id, num"
+NUMEXPR,"(, id, num"
+STMTLIST',";, id, if, int, print, return, {, ε"
+STMT,";, id, if, int, print, return, {"
+FDEF,def
+VARLIST',",, ε"
+PARLIST,"int, ε"
+MAIN',";, id, if, int, print, return, {, ε"
+MAIN,def
+FLIST,def
+ELSEPART,else
+PARLISTCALL,id
+VARLIST,id
+NUMEXPR',"+, -, ε"
+ATRIBST,id
+PARLISTCALL',",, ε"
+ATRIBEXPR,"id, ε"
+FCALL,id
+STMTLIST,";, id, if, int, print, return, {"
+FACTOR',"(, ε"
+TERM',"*, /, ε"
+PARLIST',",, ε"
+PRINTST,print
+RETURNID,"id, ε"
+IFSTMT,if
+FLIST',"def, ε"
