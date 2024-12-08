@@ -171,5 +171,17 @@ class GeradorTabela:
             for nao_terminal, producoes in self.tabela.items():
                 linha = [nao_terminal]
                 for terminal in colunas:
-                    linha.append(' '.join(self.tabela[nao_terminal].get(terminal, [])))
+                    linha.append(', '.join(self.tabela[nao_terminal].get(terminal, [])))
                 writer.writerow(linha)
+        
+        with open('saidas/tabela.csv', mode='r') as infile:
+            reader = csv.reader(infile)
+            cabecalhos = next(reader)
+            linhas = list(reader)
+
+        sorted_rows = sorted(linhas, key=lambda row: list(self.producoes.keys()).index(row[0]))
+
+        with open('saidas/tabela.csv', mode='w', newline='') as outfile:
+            writer = csv.writer(outfile)
+            writer.writerow(cabecalhos)
+            writer.writerows(sorted_rows)

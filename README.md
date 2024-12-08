@@ -6,16 +6,16 @@ Este projeto implementa um analisador sintático preditivo LL(1) para a linguage
 
 O projeto contém uma classe principal chamada AnalisadorSintaticoPreditivo, que processa a gramática, calcula os conjuntos FIRST e FOLLOW, constrói a tabela de análise sintática e realiza o parsing dos tokens da entrada com base na gramática.
 
-## Requisitos: 
+## Requisitos
 
 É necessário Python 3.7 ou superior para executar o projeto.
 
-## Como utilizar:
+## Como utilizar
 
-Para usar o analisador, siga as instruções: 
+Para usar o analisador, siga as instruções:
 
 1. Prepare o arquivo de entrada com a extensão .lsi contendo o código que será analisado. Por exemplo, temos o arquivo programa2.lsi que está disponível na pasta de exemplos:
-   
+
    ```def calcular ( int N , int M ) {
        int Res ;
        if ( N > M ) {
@@ -35,15 +35,15 @@ Para usar o analisador, siga as instruções:
        return ;
    }
 2. Execute o script no terminal fornecendo o caminho para o arquivo como argumento. Por exemplo, use o comando:
-   
+
    `python3 main.py analise ou setup <caminho_do_arquivo>`
-   
+
    Um exemplo de execução seria com o argumento setup para gerar as tabelas:
 
-    `python3 main.py setup gramatica/gramatica.txt`
-   
+    `python3 main.py setup gramaticas/gramatica.txt`
+
    Um exemplo de execução seria com o argumento analise para realizar a analise do exemplo:
-   
+
    `python3 main.py analise exemplos/programa1.lsi`
 
 3. Verifique a saída do programa. O script exibirá o processo de parsing, incluindo cada produção aplicada e tokens consumidos. Em caso de erro, mensagens indicativas serão exibidas para ajudar na correção.
@@ -71,7 +71,8 @@ Match: id
 Parsing concluído com sucesso!
 ```
 
-## O que falta:
+## O que falta
+
 - Escrever as tabelas: FIRST, FOLLOW e tabela de análise preditiva em CSV na pasta saidas OK
 
 - Extrair a gramática para a pasta gramática OK
@@ -79,7 +80,7 @@ Parsing concluído com sucesso!
 - Revisar novamente a gramática aplicada
 
 - Revisar se o código está aderente ao requisito:Especificamente, você deve implementar, no formato especificado abaixo, exatamente o algoritmo visto em aula para "parsing preditivo guiado por tabela". -> Está com problema na geracao das tabelas X parsing do exemplo. Por isso mantive o código antigo na pasta codigo_antigo.
- 
+
 - Adicionar na saída de sucesso quantos matches deram na análise OK
 
 - Adicionar as diferenças entre a gramática atual e a entregue anteriormente na última entrega

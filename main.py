@@ -27,7 +27,7 @@ def main():
         try:
             with open(caminho_arquivo, 'r', encoding='utf-8') as file:
                 tokens = file.read().replace(';', ' ; ').replace(',', ' , ').replace('(', ' ( ').replace(')', ' ) ').replace('{', ' { ').replace('}', ' } ').replace(':=', ' := ').split()
-                tokens = ['num' if t.isdigit() else 'id' if t.isidentifier() else t for t in tokens]
+                tokens = ['num' if token.isdigit() else 'id' if token.isidentifier() and token not in ['def', 'int', 'print', 'return', 'if', 'else'] else token for token in tokens]
             analisador = AnalisadorSintatico(tokens)
             analisador.analisar()
         except FileNotFoundError:

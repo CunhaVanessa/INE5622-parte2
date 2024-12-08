@@ -23,7 +23,7 @@ class AnalisadorSintatico:
                 nao_terminal = linha[0]
                 for i, producao in enumerate(linha[1:]):
                     if producao:
-                        tabela[nao_terminal][colunas[i]] = producao.split()
+                        tabela[nao_terminal][colunas[i]] = producao.split(", ")
         return tabela
 
     def analisar(self):
