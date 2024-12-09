@@ -56,33 +56,67 @@ Possíveis erros incluem mensagens como "list index out of range", que podem oco
 
 Por exemplo, a saída do programa pode incluir o seguinte:
 
-Processo de Parsing:
+Processo de Parsing, exemplo de sucesso:
 
-```MAIN -> FLIST MAIN'
-FLIST -> FDEF FLIST'
-FDEF -> def id ( PARLIST ) { STMTLIST }
-Match: def
+````
+Match: print
+EXPR -> NUMEXPR EXPR'
+NUMEXPR -> TERM NUMEXPR'
+TERM -> FACTOR TERM'
+FACTOR -> id FACTOR'
 Match: id
-Match: (
-PARLIST -> int id PARLIST'
-Match: int
+FACTOR' -> ε
+TERM' -> ε
+NUMEXPR' -> ε
+EXPR' -> ε
+Match: ;
+STMTLIST' -> STMT STMTLIST'
+STMT -> PRINTST ;
+PRINTST -> print EXPR
+Match: print
+EXPR -> NUMEXPR EXPR'
+NUMEXPR -> TERM NUMEXPR'
+TERM -> FACTOR TERM'
+FACTOR -> id FACTOR'
 Match: id
-...
+FACTOR' -> ε
+TERM' -> ε
+NUMEXPR' -> ε
+EXPR' -> ε
+Match: ;
+STMTLIST' -> STMT STMTLIST'
+STMT -> RETURNST ;
+RETURNST -> return RETURNID
+Match: return
+RETURNID -> ε
+Match: ;
+STMTLIST' -> ε
+Match: }
+FLIST' -> ε
+MAIN' -> ε
+Match: $
 Parsing concluído com sucesso!
+Total de Matches: 191
 ```
 
-## O que falta
+Exemplo de erro:
 
-- Escrever as tabelas: FIRST, FOLLOW e tabela de análise preditiva em CSV na pasta saidas OK
 
-- Extrair a gramática para a pasta gramática OK
-
-- Revisar novamente a gramática aplicada
-
-- Revisar se o código está aderente ao requisito:Especificamente, você deve implementar, no formato especificado abaixo, exatamente o algoritmo visto em aula para "parsing preditivo guiado por tabela". -> Está com problema na geracao das tabelas X parsing do exemplo. Por isso mantive o código antigo na pasta codigo_antigo.
-
-- Adicionar na saída de sucesso quantos matches deram na análise OK
-
-- Adicionar as diferenças entre a gramática atual e a entregue anteriormente na última entrega
-
-- Verificar a necessidade de escrever a saída da análise em um arquivo txt na pasta saídas
+```
+ATRIBST -> id := EXPR ATRIBEXPR
+Match: id
+Match: :=
+EXPR -> NUMEXPR EXPR'
+NUMEXPR -> TERM NUMEXPR'
+TERM -> FACTOR TERM'
+FACTOR -> id FACTOR'
+Match: id
+FACTOR' -> ε
+TERM' -> ε
+NUMEXPR' -> + TERM NUMEXPR'
+Match: +
+TERM -> FACTOR TERM'
+FACTOR -> id FACTOR'
+Match: id
+Erro: não há produção para [FACTOR', if].
+```
