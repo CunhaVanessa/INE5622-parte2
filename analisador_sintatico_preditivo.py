@@ -33,6 +33,7 @@ class AnalisadorSintatico:
         pilha = ['$']
         pilha.append(self.simbolo_inicial)
         index = 0
+        match_count = 0
 
         print("\nProcesso de Parsing:")
         while pilha:
@@ -42,6 +43,7 @@ class AnalisadorSintatico:
             if topo == atual:
                 print(f"Match: {atual}")
                 index += 1
+                match_count += 1
             elif topo == 'ε':
                 continue
             elif topo in self.nao_terminais:
@@ -62,3 +64,5 @@ class AnalisadorSintatico:
             print(f"Erro: pilha não vazia: {pilha}")
         else:
             print("Parsing concluído com sucesso!")
+        
+        print(f"Total de Matches: {match_count}")

@@ -1,57 +1,57 @@
 Não Terminal,FIRST
-<=,<=
-{,{
->=,>=
-:=,:=
-",",","
-<>,<>
-id,id
-num,num
-;,;
 ==,==
-else,else
-),)
->,>
-int,int
-if,if
-<,<
+num,num
+return,return
 def,def
+:=,:=
+if,if
+),)
+{,{
+else,else
+<,<
 /,/
-(,(
+>=,>=
+-,-
 *,*
 print,print
 +,+
-return,return
+int,int
+(,(
+",",","
 },}
--,-
-MAIN,def
-FLIST,def
-STMTLIST',";, id, if, int, print, return, {, ε"
+<>,<>
+id,id
+<=,<=
+;,;
+>,>
+PARLIST,"int, ε"
+NUMEXPR,"(, id, num"
+TERM,"(, id, num"
+VARLIST',",, ε"
+VARLIST,id
+IFSTMT,if
+FACTOR',"(, ε"
+ATRIBST,id
+FACTOR,"(, id, num"
+ELSEPART,else
+MAIN',";, id, if, int, print, return, {, ε"
 STMT,";, id, if, int, print, return, {"
-RETURNID,"id, ε"
+PRINTST,print
 ATRIBEXPR,"id, ε"
 FCALL,id
-VARLIST',",, ε"
-IFSTMT,if
+RETURNST,return
+RETURNID,"id, ε"
+MAIN,def
+FLIST,def
+STMTLIST,";, id, if, int, print, return, {"
 TERM',"*, /, ε"
 EXPR,"(, id, num"
-NUMEXPR,"(, id, num"
-FACTOR,"(, id, num"
-RETURNST,return
-FDEF,def
-PARLISTCALL,id
-FLIST',"def, ε"
 NUMEXPR',"+, -, ε"
-FACTOR',"(, ε"
-PARLIST,"int, ε"
-VARLIST,id
-TERM,"(, id, num"
-ATRIBST,id
-PRINTST,print
-MAIN',";, id, if, int, print, return, {, ε"
 PARLISTCALL',",, ε"
-STMTLIST,";, id, if, int, print, return, {"
-ELSEBODY,ε
-ELSEPART,else
 PARLIST',",, ε"
 EXPR',"<, <=, <>, ==, >, >=, ε"
+STMTLIST',";, id, if, int, print, return, {, ε"
+FDEF,def
+FLIST',"def, ε"
+ELSEBODY,ε
+PARLISTCALL,id

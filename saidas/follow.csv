@@ -1,32 +1,32 @@
 Não Terminal,FOLLOW
 MAIN,$
-FLIST,"$, ;, id, if, int, print, return, {"
-MAIN',$
-STMT,"$, ;, else, id, if, int, print, return, {, }"
-STMTLIST',}
-FCALL,;
-ATRIBEXPR,;
-VARLIST',;
-EXPR,"), ;, id"
-ELSEPART,"$, ;, else, id, if, int, print, return, {, }"
-IFSTMT,"$, ;, else, id, if, int, print, return, {, }"
-FACTOR,"), *, +, -, /, ;, <, <=, <>, ==, >, >=, id"
-TERM',"), +, -, ;, <, <=, <>, ==, >, >=, id"
-NUMEXPR,"), ;, <, <=, <>, ==, >, >=, id"
-EXPR',"), ;, id"
-FACTOR',"), *, +, -, /, ;, <, <=, <>, ==, >, >=, id"
-RETURNID,;
-RETURNST,;
-FDEF,"$, ;, def, id, if, int, print, return, {"
-FLIST',"$, ;, id, if, int, print, return, {"
-PARLISTCALL',)
-PARLISTCALL,)
-TERM,"), +, -, ;, <, <=, <>, ==, >, >=, id"
-NUMEXPR',"), ;, <, <=, <>, ==, >, >=, id"
 PARLIST',)
 PARLIST,)
+TERM,"), +, -, ;, <, <=, <>, ==, >, >=, id"
+NUMEXPR,"), ;, <, <=, <>, ==, >, >=, id"
+NUMEXPR',"), ;, <, <=, <>, ==, >, >=, id"
+VARLIST',;
 VARLIST,;
+EXPR,"), ;, id"
+STMT,"$, ;, else, id, if, int, print, return, {, }"
+ELSEPART,"$, ;, else, id, if, int, print, return, {, }"
+IFSTMT,"$, ;, else, id, if, int, print, return, {, }"
+PARLISTCALL,)
 ATRIBST,;
-PRINTST,;
-STMTLIST,}
+ATRIBEXPR,;
+FACTOR',"), *, +, -, /, ;, <, <=, <>, ==, >, >=, id"
+FACTOR,"), *, +, -, /, ;, <, <=, <>, ==, >, >=, id"
 ELSEBODY,"$, ;, else, id, if, int, print, return, {, }"
+MAIN',$
+PRINTST,;
+FCALL,;
+RETURNID,;
+RETURNST,;
+FLIST,"$, ;, id, if, int, print, return, {"
+STMTLIST,}
+STMTLIST',}
+TERM',"), +, -, ;, <, <=, <>, ==, >, >=, id"
+EXPR',"), ;, id"
+PARLISTCALL',)
+FDEF,"$, ;, def, id, if, int, print, return, {"
+FLIST',"$, ;, id, if, int, print, return, {"
